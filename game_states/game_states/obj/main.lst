@@ -1,0 +1,148 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ISO C Compiler 
+                                      3 ; Version 4.2.2 #13350 (MINGW64)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module main
+                                      6 	.optsdcc -msm83
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _main
+                                     12 	.globl _init_gfx
+                                     13 	.globl _GameplayEndUpdate
+                                     14 	.globl _GameplayEndSetup
+                                     15 	.globl _CoreGameLoopUpdate
+                                     16 	.globl _CoreGameLoopSetup
+                                     17 	.globl _GameplayStartUpdate
+                                     18 	.globl _GameplayStartSetup
+                                     19 	.globl _wait_vbl_done
+                                     20 	.globl _joypad
+                                     21 ;--------------------------------------------------------
+                                     22 ; special function registers
+                                     23 ;--------------------------------------------------------
+                                     24 ;--------------------------------------------------------
+                                     25 ; ram data
+                                     26 ;--------------------------------------------------------
+                                     27 	.area _DATA
+                                     28 ;--------------------------------------------------------
+                                     29 ; ram data
+                                     30 ;--------------------------------------------------------
+                                     31 	.area _INITIALIZED
+                                     32 ;--------------------------------------------------------
+                                     33 ; absolute external ram data
+                                     34 ;--------------------------------------------------------
+                                     35 	.area _DABS (ABS)
+                                     36 ;--------------------------------------------------------
+                                     37 ; global & static initialisations
+                                     38 ;--------------------------------------------------------
+                                     39 	.area _HOME
+                                     40 	.area _GSINIT
+                                     41 	.area _GSFINAL
+                                     42 	.area _GSINIT
+                                     43 ;--------------------------------------------------------
+                                     44 ; Home
+                                     45 ;--------------------------------------------------------
+                                     46 	.area _HOME
+                                     47 	.area _HOME
+                                     48 ;--------------------------------------------------------
+                                     49 ; code
+                                     50 ;--------------------------------------------------------
+                                     51 	.area _CODE
+                                     52 ;src\main.c:9: void init_gfx() {
+                                     53 ;	---------------------------------
+                                     54 ; Function init_gfx
+                                     55 ; ---------------------------------
+      000000                         56 _init_gfx::
+                                     57 ;src\main.c:15: SHOW_BKG;
+      000000 F0r00            [12]   58 	ldh	a, (_LCDC_REG + 0)
+      000002 F6 01            [ 8]   59 	or	a, #0x01
+      000004 E0r00            [12]   60 	ldh	(_LCDC_REG + 0), a
+                                     61 ;src\main.c:16: }
+      000006 C9               [16]   62 	ret
+                                     63 ;src\main.c:18: void main(void)
+                                     64 ;	---------------------------------
+                                     65 ; Function main
+                                     66 ; ---------------------------------
+      000007                         67 _main::
+                                     68 ;src\main.c:20: init_gfx();
+      000007 CDr00r00         [24]   69 	call	_init_gfx
+                                     70 ;src\main.c:22: uint8_t currentGameState=GAMEFIRSTLOAD;
+                                     71 ;src\main.c:23: uint8_t nextGameState=GAMEPLAYSTART;
+      00000A 01 00 01         [12]   72 	ld	bc, #0x100
+                                     73 ;src\main.c:26: while(1) {
+      00000D                         74 00120$:
+                                     75 ;src\main.c:28: joypadPrevious=joypadCurrent;
+      00000D FAr00r00         [16]   76 	ld	a, (#_joypadCurrent)
+      000010 EAr00r00         [16]   77 	ld	(#_joypadPrevious),a
+                                     78 ;src\main.c:29: joypadCurrent=joypad();
+      000013 CDr00r00         [24]   79 	call	_joypad
+      000016 EAr00r00         [16]   80 	ld	(#_joypadCurrent),a
+                                     81 ;src\main.c:35: if (nextGameState!=currentGameState){
+      000019 79               [ 4]   82 	ld	a, c
+      00001A 90               [ 4]   83 	sub	a, b
+      00001B 28 22            [12]   84 	jr	Z, 00110$
+                                     85 ;src\main.c:37: currentGameState=nextGameState;
+      00001D 48               [ 4]   86 	ld	c, b
+                                     87 ;src\main.c:40: if (currentGameState==GAMEPLAYSTART)GameplayStartSetup();
+      00001E 78               [ 4]   88 	ld	a, b
+      00001F 3D               [ 4]   89 	dec	a
+      000020 20 07            [12]   90 	jr	NZ, 00107$
+      000022 C5               [16]   91 	push	bc
+      000023 CDr00r00         [24]   92 	call	_GameplayStartSetup
+      000026 C1               [12]   93 	pop	bc
+      000027 18 16            [12]   94 	jr	00110$
+      000029                         95 00107$:
+                                     96 ;src\main.c:41: else if (currentGameState==COREGAMELOOP)CoreGameLoopSetup();
+      000029 78               [ 4]   97 	ld	a, b
+      00002A D6 03            [ 8]   98 	sub	a, #0x03
+      00002C 20 07            [12]   99 	jr	NZ, 00104$
+      00002E C5               [16]  100 	push	bc
+      00002F CDr00r00         [24]  101 	call	_CoreGameLoopSetup
+      000032 C1               [12]  102 	pop	bc
+      000033 18 0A            [12]  103 	jr	00110$
+      000035                        104 00104$:
+                                    105 ;src\main.c:42: else if (currentGameState==GAMEPLAYEND)GameplayEndSetup();
+      000035 78               [ 4]  106 	ld	a, b
+      000036 D6 02            [ 8]  107 	sub	a, #0x02
+      000038 20 05            [12]  108 	jr	NZ, 00110$
+      00003A C5               [16]  109 	push	bc
+      00003B CDr00r00         [24]  110 	call	_GameplayEndSetup
+      00003E C1               [12]  111 	pop	bc
+      00003F                        112 00110$:
+                                    113 ;src\main.c:46: if (currentGameState==GAMEPLAYSTART)nextGameState=GameplayStartUpdate();
+      00003F 79               [ 4]  114 	ld	a, c
+      000040 3D               [ 4]  115 	dec	a
+      000041 20 08            [12]  116 	jr	NZ, 00117$
+      000043 C5               [16]  117 	push	bc
+      000044 CDr00r00         [24]  118 	call	_GameplayStartUpdate
+      000047 C1               [12]  119 	pop	bc
+      000048 47               [ 4]  120 	ld	b, a
+      000049 18 18            [12]  121 	jr	00118$
+      00004B                        122 00117$:
+                                    123 ;src\main.c:47: else if (currentGameState==COREGAMELOOP)nextGameState=CoreGameLoopUpdate();
+      00004B 79               [ 4]  124 	ld	a, c
+      00004C D6 03            [ 8]  125 	sub	a, #0x03
+      00004E 20 08            [12]  126 	jr	NZ, 00114$
+      000050 C5               [16]  127 	push	bc
+      000051 CDr00r00         [24]  128 	call	_CoreGameLoopUpdate
+      000054 C1               [12]  129 	pop	bc
+      000055 47               [ 4]  130 	ld	b, a
+      000056 18 0B            [12]  131 	jr	00118$
+      000058                        132 00114$:
+                                    133 ;src\main.c:48: else if (currentGameState==GAMEPLAYEND)nextGameState=GameplayEndUpdate();
+      000058 79               [ 4]  134 	ld	a, c
+      000059 D6 02            [ 8]  135 	sub	a, #0x02
+      00005B 20 06            [12]  136 	jr	NZ, 00118$
+      00005D C5               [16]  137 	push	bc
+      00005E CDr00r00         [24]  138 	call	_GameplayEndUpdate
+      000061 C1               [12]  139 	pop	bc
+      000062 47               [ 4]  140 	ld	b, a
+      000063                        141 00118$:
+                                    142 ;src\main.c:52: wait_vbl_done();
+      000063 CDr00r00         [24]  143 	call	_wait_vbl_done
+                                    144 ;src\main.c:54: }
+      000066 18 A5            [12]  145 	jr	00120$
+                                    146 	.area _CODE
+                                    147 	.area _INITIALIZER
+                                    148 	.area _CABS (ABS)

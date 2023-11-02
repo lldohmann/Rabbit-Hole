@@ -1,0 +1,41 @@
+XL3
+H 9 areas 6 global symbols
+M CoreGameLoop
+O -msm83
+S _joypadCurrent Ref000000
+S .__.ABS. Def000000
+S _fill_bkg_rect Ref000000
+S _puts Ref000000
+A _CODE size 5E flags 0 addr 0
+S _CoreGameLoopSetup Def000000
+S _CoreGameLoopUpdate Def000054
+A _DATA size 0 flags 0 addr 0
+A _INITIALIZED size 0 flags 0 addr 0
+A _DABS size 0 flags 8 addr 0
+A _HOME size 0 flags 0 addr 0
+A _GSINIT size 0 flags 0 addr 0
+A _GSFINAL size 0 flags 0 addr 0
+A _INITIALIZER size 0 flags 0 addr 0
+A _CABS size 0 flags 8 addr 0
+T 00 00 00
+R 00 00 00 00
+T 00 00 00 AF 67 2E 1F E5 3E 1F F5 33 AF 0F F5 AF
+R 00 00 00 00
+T 0D 00 00 CD 00 00 E8 05 11 18 00 C3 00 00
+R 00 00 00 00 02 04 02 00 00 09 00 00 02 0C 03 00
+T 18 00 00
+R 00 00 00 00
+T 18 00 00 54 68 69 73 20 69 73 20 74 68 65 20 63
+R 00 00 00 00
+T 25 00 00 6F 72 65 20 67 61 6D 65 20 6C 6F 6F 70
+R 00 00 00 00
+T 32 00 00 2E 0A 50 72 65 73 73 20 42 20 74 6F 20
+R 00 00 00 00
+T 3F 00 00 63 68 61 6E 67 65 20 73 74 61 74 65 73
+R 00 00 00 00
+T 4C 00 00 20 61 67 61 69 6E 2E 00
+R 00 00 00 00
+T 54 00 00
+R 00 00 00 00
+T 54 00 00 FA 00 00 B7 3E 02 C0 3E 03 C9
+R 00 00 00 00 02 04 00 00

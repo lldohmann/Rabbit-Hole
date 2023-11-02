@@ -1,0 +1,151 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ISO C Compiler 
+                                      3 ; Version 4.2.2 #13350 (MINGW64)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module GameplayStart
+                                      6 	.optsdcc -msm83
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _GameplayStartUpdate
+                                     12 	.globl _GameplayStartSetup
+                                     13 	.globl _puts
+                                     14 	.globl _printf
+                                     15 	.globl _joypad
+                                     16 ;--------------------------------------------------------
+                                     17 ; special function registers
+                                     18 ;--------------------------------------------------------
+                                     19 ;--------------------------------------------------------
+                                     20 ; ram data
+                                     21 ;--------------------------------------------------------
+                                     22 	.area _DATA
+                                     23 ;--------------------------------------------------------
+                                     24 ; ram data
+                                     25 ;--------------------------------------------------------
+                                     26 	.area _INITIALIZED
+                                     27 ;--------------------------------------------------------
+                                     28 ; absolute external ram data
+                                     29 ;--------------------------------------------------------
+                                     30 	.area _DABS (ABS)
+                                     31 ;--------------------------------------------------------
+                                     32 ; global & static initialisations
+                                     33 ;--------------------------------------------------------
+                                     34 	.area _HOME
+                                     35 	.area _GSINIT
+                                     36 	.area _GSFINAL
+                                     37 	.area _GSINIT
+                                     38 ;--------------------------------------------------------
+                                     39 ; Home
+                                     40 ;--------------------------------------------------------
+                                     41 	.area _HOME
+                                     42 	.area _HOME
+                                     43 ;--------------------------------------------------------
+                                     44 ; code
+                                     45 ;--------------------------------------------------------
+                                     46 	.area _CODE
+                                     47 ;res\GameplayStart.c:6: void GameplayStartSetup(){
+                                     48 ;	---------------------------------
+                                     49 ; Function GameplayStartSetup
+                                     50 ; ---------------------------------
+      000000                         51 _GameplayStartSetup::
+                                     52 ;res\GameplayStart.c:8: printf("  Area of a Circle\n\n");
+      000000 11r63r00         [12]   53 	ld	de, #___str_23
+      000003 CDr00r00         [24]   54 	call	_puts
+                                     55 ;res\GameplayStart.c:9: printf("This C program uses ");
+      000006 11r24r00         [12]   56 	ld	de, #___str_4
+      000009 D5               [16]   57 	push	de
+      00000A CDr00r00         [24]   58 	call	_printf
+      00000D E1               [12]   59 	pop	hl
+                                     60 ;res\GameplayStart.c:10: printf("fixed point notation");
+      00000E 11r39r00         [12]   61 	ld	de, #___str_5
+      000011 D5               [16]   62 	push	de
+      000012 CDr00r00         [24]   63 	call	_printf
+      000015 E1               [12]   64 	pop	hl
+                                     65 ;res\GameplayStart.c:11: printf("for calculations as ");
+      000016 11r4Er00         [12]   66 	ld	de, #___str_6
+      000019 D5               [16]   67 	push	de
+      00001A CDr00r00         [24]   68 	call	_printf
+      00001D D1               [12]   69 	pop	de
+                                     70 ;res\GameplayStart.c:19: printf("Press A to continue.\n");
+      00001E 11r87r00         [12]   71 	ld	de, #___str_30
+                                     72 ;res\GameplayStart.c:20: }
+      000021 C3r00r00         [16]   73 	jp	_puts
+      000024                         74 ___str_4:
+      000024 54 68 69 73 20 43 20    75 	.ascii "This C program uses "
+             70 72 6F 67 72 61 6D
+             20 75 73 65 73 20
+      000038 00                      76 	.db 0x00
+      000039                         77 ___str_5:
+      000039 66 69 78 65 64 20 70    78 	.ascii "fixed point notation"
+             6F 69 6E 74 20 6E 6F
+             74 61 74 69 6F 6E
+      00004D 00                      79 	.db 0x00
+      00004E                         80 ___str_6:
+      00004E 66 6F 72 20 63 61 6C    81 	.ascii "for calculations as "
+             63 75 6C 61 74 69 6F
+             6E 73 20 61 73 20
+      000062 00                      82 	.db 0x00
+      000063                         83 ___str_23:
+      000063 20 20 20 20 20 45 78    84 	.ascii "     Exercise 1"
+             65 72 63 69 73 65 20
+             31
+      000072 0A                      85 	.db 0x0a
+      000073 20 20 41 72 65 61 20    86 	.ascii "  Area of a Circle"
+             6F 66 20 61 20 43 69
+             72 63 6C 65
+      000085 0A                      87 	.db 0x0a
+      000086 00                      88 	.db 0x00
+      000087                         89 ___str_30:
+      000087 6F 72 69 67 69 6E 61    90 	.ascii "original hardware "
+             6C 20 68 61 72 64 77
+             61 72 65 20
+      000099 0A                      91 	.db 0x0a
+      00009A 64 69 64 6E 27 74 20    92 	.ascii "didn't support "
+             73 75 70 70 6F 72 74
+             20
+      0000A9 0A                      93 	.db 0x0a
+      0000AA 66 6C 6F 61 74 69 6E    94 	.ascii "floating point"
+             67 20 70 6F 69 6E 74
+      0000B8 0A                      95 	.db 0x0a
+      0000B9 6E 75 6D 62 65 72 73    96 	.ascii "numbers. "
+             2E 20
+      0000C2 0A                      97 	.db 0x0a
+      0000C3 0A                      98 	.db 0x0a
+      0000C4 41 20 73 74 61 74 65    99 	.ascii "A state machine is "
+             20 6D 61 63 68 69 6E
+             65 20 69 73 20
+      0000D7 0A                     100 	.db 0x0a
+      0000D8 75 73 65 64 20 74 6F   101 	.ascii "used to organize the"
+             20 6F 72 67 61 6E 69
+             7A 65 20 74 68 65
+      0000EC 0A                     102 	.db 0x0a
+      0000ED 70 72 6F 67 72 61 6D   103 	.ascii "program."
+             2E
+      0000F5 0A                     104 	.db 0x0a
+      0000F6 50 72 65 73 73 20 41   105 	.ascii "Press A to continue."
+             20 74 6F 20 63 6F 6E
+             74 69 6E 75 65 2E
+      00010A 00                     106 	.db 0x00
+                                    107 ;res\GameplayStart.c:21: uint8_t GameplayStartUpdate(){
+                                    108 ;	---------------------------------
+                                    109 ; Function GameplayStartUpdate
+                                    110 ; ---------------------------------
+      00010B                        111 _GameplayStartUpdate::
+                                    112 ;res\GameplayStart.c:22: joypadPrevious=joypadCurrent;
+      00010B FAr00r00         [16]  113 	ld	a, (#_joypadCurrent)
+      00010E EAr00r00         [16]  114 	ld	(#_joypadPrevious),a
+                                    115 ;res\GameplayStart.c:23: joypadCurrent=joypad();
+      000111 CDr00r00         [24]  116 	call	_joypad
+                                    117 ;res\GameplayStart.c:25: if (joypadCurrent && J_A) return COREGAMELOOP;
+      000114 EAr00r00         [16]  118 	ld	(#_joypadCurrent),a
+      000117 B7               [ 4]  119 	or	a, a
+                                    120 ;res\GameplayStart.c:26: else return GAMEPLAYSTART;
+      000118 3E 03            [ 8]  121 	ld	a, #0x03
+      00011A C0               [20]  122 	ret	NZ
+      00011B 3E 01            [ 8]  123 	ld	a, #0x01
+                                    124 ;res\GameplayStart.c:27: }
+      00011D C9               [16]  125 	ret
+                                    126 	.area _CODE
+                                    127 	.area _INITIALIZER
+                                    128 	.area _CABS (ABS)
